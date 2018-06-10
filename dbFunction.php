@@ -16,15 +16,18 @@ class dbFunction
 
   }
   function __destruct(){
-    // $this->db->close();
+     $this->db->close();
   }
   public function UserRegistration($name,$email,$pass){
 
-
+    $pass = md5($pass);
     $query = mysqli_query($this->db->conn,"INSERT into users(name,email,password) values('$name','$email','$pass')") or die(mysql_errr());
-    var_dump($query);
-    echo "$query";
-    return $query;
+    if($query){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   public function UserLogin($email,$pass){
@@ -115,7 +118,7 @@ class dbFunction
   public function getAllUsers(){
     $query = "SELECT * FROM users WHERE access_level=0";
     $qr = mysqli_query($this->db->conn,$query);
-    #$allUserData = mysqli_fetch_array($qr,MYSQLI_ASSOC);
+    
 
     if($qr){
       return $qr;
@@ -126,11 +129,7 @@ class dbFunction
   }
 
 }
-// $dbFunc = new dbFunction();
-// $updateName   = "Himanshu";
-// $updateEmail  = "abc@xyz.xyz";
-// $userID       = '15';
-// $update = $dbFunc->updateUser($updateName,$updateEmail,$userID);
+
 
 
 ?>

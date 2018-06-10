@@ -1,6 +1,6 @@
 <?php
 $userID    = $_GET['id'];
-include_once('dbFunction.php');
+include('dbFunction.php');
 $dbFunc = new dbFunction();
 
 $user = $dbFunc->getUserData($userID);
@@ -62,10 +62,10 @@ $email = $user['Email'];
       <div class="card-header deep-orange lighten-1 white-text">Profile</div>
       <div class="card-body">
           <!-- Form Material  -->
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?id=<?php echo $userID ?>">
               Name: <input name="updateName" type="text" value="<?php echo $name; ?>"> <Br /> <br />
               Email: <input name="updateEmail" type="text" value="<?php echo $email; ?>"> <br /> <br />
-              <button name="save" >Save</button>
+              <button type="button" class="btn btn-warning btn-sm" name="save" >Save</button>
             </form>
           <!--/FOrm Material  -->
 

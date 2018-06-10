@@ -1,4 +1,7 @@
 <?php
+if($_SESSION['level'] != 1){
+  header("location:./home.php");
+}
 $name = $email = $confirmEmail = "";
 $nameErr = $emailErr = $conEmailErr = $passError = $tncErr = "";
 require_once('dbFunction.php');
@@ -130,14 +133,14 @@ if(isset($_POST['register'])){
 
             $userCheck = $dbFunc->alreadyUser($email);
             if($userCheck == false){
-                $pass = md5($pass);
+
                 $userRegister = $dbFunc->UserRegistration($name,$email,$pass);
                 if($userRegister){
-                    echo "<script>alert('Account Created Please Sign in')</script>";
-                    echo '<script type="text/javascript">function Redirect(){window.location="./login.php";}document.write("You will be redirected to Login Page");setTimeout("Redirect()", 3000);</script>';
+                    echo "<script>alert('Account Created')</script>";
+
                 }
                 else{
-                    echo "<script>alert('Account Creatoin Failed! Contact Admin')</script>";
+                    echo "<script>alert('Account Creatoin Failed')</script>";
                 }
 
 
