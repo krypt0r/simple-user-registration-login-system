@@ -15,13 +15,13 @@
         echo "Database Connection Error.";
       }
       else {
-        
+
 
         return $this->conn;
       }
     }
     public function close(){
-      mysqli_close();
+      mysqli_close($this->conn);
     }
   }
 

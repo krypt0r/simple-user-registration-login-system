@@ -1,6 +1,7 @@
 <?php
 include_once('dbFunction.php');
 $dbFunc = new dbFunction();
+
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ $dbFunc = new dbFunction();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Login</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -22,6 +23,8 @@ $dbFunc = new dbFunction();
 </head>
 
 <body>
+
+
 
     <h1 align="center">Login to Site here </h1>
     <br />
@@ -50,12 +53,14 @@ $dbFunc = new dbFunction();
 
 
         <div class="text-center mt-4">
-            <button name="login" class="btn btn-default" type="submit">Login</button>  or <a href="./signup.php">Register</a>
+            <button name="login" class="btn btn-default" type="submit"><i class="fa fa-user-o pr-2" aria-hidden="true"></i>Login</button> <a href="#">forgot password ?</a>
             <br />
-            <a href="#">forgotten password ?</a>
+            Not a member ?  <a href="./signup.php"> Register</a>
         </div>
     </form>
     <!-- Material form login -->
+
+
 </div>
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -76,13 +81,20 @@ if(isset($_POST['login'])){
     $email = $_POST['email'];
     $pass  = $_POST['password'];
     $pass = md5($pass);
-    $user = $dbFunc->UserLogin($email,$pass);
-    if($user){
-        header('location:./home.php');
+    $adminCheck = $dbFunc->AdminLogin($email,$pass);
+    if($adminCheck){
+      header('location:./admin.php');
     }
     else{
-        echo "<script>alert(email/password combination wrong !)</script>";
+      $user = $dbFunc->UserLogin($email,$pass);
+      if($user){
+          header('location:./home.php');
+      }
+      else{
+          echo "<script>alert(email/password combination wrong !)</script>";
+      }
     }
+
 }
 
 ?>

@@ -9,13 +9,14 @@ class dbFunction
 {
 
   public $db;
+  public $userEmail;
   function __construct()
   {
       $this->db = new dbConnect();
 
   }
   function __destruct(){
-
+    // $this->db->close();
   }
   public function UserRegistration($name,$email,$pass){
 
@@ -38,12 +39,34 @@ class dbFunction
       $_SESSION['uid']   = $user_data['id'];
       $_SESSION['user']  = $user_data['Name'];
       $_SESSION['add'] = $user_data['Email'];
+      $_SESSION['level'] = $user_data['access_level'];
       return true;
     }
     else{
       return false;
     }
   }
+
+  public function adminLogin($email,$pass){
+
+    $query = "SELECT * FROM users WHERE email='$email' AND password='$pass' AND  access_level=1";
+    $res = mysqli_query($this->db->conn,$query);
+    $user_data = mysqli_fetch_array($res);
+    $no_of_rows = mysqli_num_rows($res);
+
+    if($no_of_rows == 1){
+      $_SESSION['login'] = true;
+      $_SESSION['uid']   = $user_data['id'];
+      $_SESSION['user']  = $user_data['Name'];
+      $_SESSION['add'] = $user_data['Email'];
+      $_SESSION['level'] = $user_data['access_level'];
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   public function alreadyUser($email){
 
     $qr = "SELECT * FROM users WHERE email = '$email'";
@@ -57,7 +80,57 @@ class dbFunction
       return false;
     }
   }
+//
+/* UPDATE USER function */
+//
+
+  public function updateUser($updateName,$updateEmail,$userID){
+
+    $qr = "UPDATE users SET Name='$updateName', email='$updateEmail' WHERE id='$userID'";
+    $query = mysqli_query($this->db->conn,$qr);
+
+    if($query){
+      return true;
+
+
+    }
+    else {
+      return false;
+
+    }
+  }
+  public function getUserData($id){
+    $qr = "SELECT * FROM users WHERE id = '$id'";
+    $query = mysqli_query($this->db->conn,$qr);
+    $data = mysqli_fetch_array($query);
+    $rows = mysqli_num_rows($query);
+
+    if($rows == 1){
+      return $data;
+    }
+    else {
+      return false;
+    }
+  }
+  public function getAllUsers(){
+    $query = "SELECT * FROM users WHERE access_level=0";
+    $qr = mysqli_query($this->db->conn,$query);
+    #$allUserData = mysqli_fetch_array($qr,MYSQLI_ASSOC);
+
+    if($qr){
+      return $qr;
+    }
+    else {
+      return $err;
+    }
+  }
+
 }
+// $dbFunc = new dbFunction();
+// $updateName   = "Himanshu";
+// $updateEmail  = "abc@xyz.xyz";
+// $userID       = '15';
+// $update = $dbFunc->updateUser($updateName,$updateEmail,$userID);
 
 
 ?>

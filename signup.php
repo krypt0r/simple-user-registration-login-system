@@ -1,5 +1,6 @@
 <?php
-
+$name = $email = $confirmEmail = "";
+$nameErr = $emailErr = $conEmailErr = $passError = $tncErr = "";
 require_once('dbFunction.php');
 $dbFunc = new dbFunction();
 
@@ -12,7 +13,7 @@ $dbFunc = new dbFunction();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Signup</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -32,12 +33,13 @@ $dbFunc = new dbFunction();
 <div style="margin:auto; width:50%;">
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" >
   <p class="h4 text-center mb-4">Sign up</p>
-
+  <p class="p text-right">Note : All fields are required</p>
   <!-- Material input text -->
   <div class="md-form">
       <i class="fa fa-user prefix grey-text"></i>
       <input name="name" type="text" id="materialFormRegisterNameEx" class="form-control">
       <label for="materialFormRegisterNameEx">Your name</label>
+      <span class = "error"> <?php echo $nameErr;?></span>
   </div>
 
   <!-- Material input email -->
@@ -95,7 +97,9 @@ $dbFunc = new dbFunction();
 
 
   <div class="text-center mt-4">
-      <button name="register" class="btn btn-primary" type="submit">Register</button> Already registered ? <a href="./login.php">Login Now</a>
+      <button name="register" class="btn btn-primary" type="submit"><i class="fa fa-user-plus pr-2" aria-hidden="true"></i> Register</button> <button class="btn btn-primary" type="reset" value="Reset"><i class="fa fa-undo" aria-hidden="true"></i> Reset</button>
+      <br />
+      Already registered ? <a href="./login.php">Login Now</a>
   </div>
 </form>
 <!-- Material form register -->
