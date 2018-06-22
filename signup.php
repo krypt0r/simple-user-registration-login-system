@@ -31,13 +31,13 @@ $dbFunc = new dbFunction();
 <br />
 <!-- Material form register -->
 <div style="margin:auto; width:50%;">
-<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" >
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="registerForm">
   <p class="h4 text-center mb-4">Sign up</p>
   <p class="p text-right">Note : All fields are required</p>
   <!-- Material input text -->
   <div class="md-form">
       <i class="fa fa-user prefix grey-text"></i>
-      <input name="name" type="text" id="materialFormRegisterNameEx" class="form-control">
+      <input name="name" type="text" id="materialFormRegisterNameEx" class="form-control" required>
       <label for="materialFormRegisterNameEx">Your name</label>
       <span class = "error"> <?php echo $nameErr;?></span>
   </div>
@@ -45,26 +45,27 @@ $dbFunc = new dbFunction();
   <!-- Material input email -->
   <div class="md-form">
       <i class="fa fa-envelope prefix grey-text"></i>
-      <input name="email" type="email" id="materialFormRegisterEmailEx" class="form-control">
+      <input name="email" id="email" type="email" id="materialFormRegisterEmailEx" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
       <label for="materialFormRegisterEmailEx">Your email</label>
+
   </div>
 
   <!-- Material input email -->
   <div class="md-form">
       <i class="fa fa-exclamation-triangle prefix grey-text"></i>
-      <input name="confirmEmail" type="email" id="materialFormRegisterConfirmEx" class="form-control">
+      <input name="confirmEmail"  id="confirmemail" type="email" id="materialFormRegisterConfirmEx" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" required>
       <label for="materialFormRegisterConfirmEx">Confirm your email</label>
   </div>
 
   <!-- Material input password -->
   <div class="md-form">
       <i class="fa fa-lock prefix grey-text"></i>
-      <input name="password" type="password" id="materialFormRegisterPasswordEx" class="form-control">
+      <input name="password" type="password" id="materialFormRegisterPasswordEx" class="form-control" required>
       <label for="materialFormRegisterPasswordEx">Your password</label>
   </div>
 
   <div class="form-check mb-2 mr-sm-2">
-        <input name="agreeTnC" value="agreed" class="form-check-input" type="checkbox" id="inlineFormCheckMD">
+        <input name="agreeTnC" value="agreed" class="form-check-input" type="checkbox" id="inlineFormCheckMD" required>
         <label class="form-check-label" for="inlineFormCheckMD">
            I Agree TnC of xyz (Read <a href="#exampleModal"  data-toggle="modal" >TnC</a>)
         </label>
@@ -114,6 +115,15 @@ $dbFunc = new dbFunction();
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript">
+    $("#registerForm").on("submit",function(e) { 
+        if($("#email").val() != $("#confirmemail").val())
+        {
+            alert("Both the emails should match :(");
+            e.preventDefault();
+        }
+    });
+    </script>
 </body>
 
 </html>
