@@ -1,14 +1,12 @@
 <?php
-
-
+include_once('dbFunction.php');
+$dbFunc =  new dbFunction();
 if(!($_SESSION)){
     header("location:./login.php");
 }
 if($_SESSION['level']==1){
   header("location:./admin.php");
 }
-include_once('dbFunction.php');
-$dbFunc =  new dbFunction();
 $user   = $dbFunc->getUserData($_SESSION['uid']);
 $name   = $user['Name'];
 $email  = $user['Email'];

@@ -21,7 +21,7 @@ class dbFunction
   public function UserRegistration($name,$email,$pass){
 
     $pass = md5($pass);
-    $query = mysqli_query($this->db->conn,"INSERT into users(name,email,password) values('$name','$email','$pass')") or die(mysql_errr());
+    $query = mysqli_query($this->db->conn,"INSERT INTO users(name, email, password) values('$name','$email','$pass')") or die(mysql_errr());
     if($query){
       return true;
     }
@@ -118,7 +118,7 @@ class dbFunction
   public function getAllUsers(){
     $query = "SELECT * FROM users WHERE access_level=0";
     $qr = mysqli_query($this->db->conn,$query);
-    
+
 
     if($qr){
       return $qr;
@@ -128,8 +128,61 @@ class dbFunction
     }
   }
 
+  public function getMessageDetails(){
+    $query = "SELECT id, senderName, senderEmail, emailSubject, readStatus FROM messages";
+    $qr = mysqli_query($this->db->conn,$query);
+    if($qr){
+      return $qr;
+    }
+    else {
+      return $err;
+    }
+  }
+  public function getReadStatusMessage(){
+    $query = "SELECT readStatus FROM messages WHERE readStatus=0";
+    $qr = mysqli_query($this->db->conn,$query);
+    $returnReadStatus = mysqli_num_rows($qr);
+
+    if($qr){
+      return $returnReadStatus;
+    }
+    else{
+      return False;
+    }
+  }
+  public function getMessageFull($messageID){
+    $query = "SELECT * FROM messages WHERE id = '$messageID'";
+    $qr = mysqli_query($this->db->conn,$query);
+    $getData = mysqli_fetch_array($qr, MYSQLI_ASSOC);
+
+    if($qr){
+      return $getData;
+    }
+    else{
+      return False;
+    }
+
+  }
+ public function deleteUser($userID){
+   $query = "DELETE FROM users where id='$userID'";
+   $qr = mysqli_query($this->db->conn,$query);
+   if($qr){
+     return true;
+   }
+   else{
+     return false;
+   }
+ }
+ public function changeReadStatus($ID){
+  $query = "UPDATE messages SET readStatus='1' WHERE id='$ID'";
+  $qr = mysqli_query($this->db->conn,$query);
+  if($qr){
+    return true;
+  }
+  else{
+    return false;
+  }
+ }
+
 }
-
-
-
 ?>

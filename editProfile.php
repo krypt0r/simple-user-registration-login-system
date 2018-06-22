@@ -6,6 +6,8 @@ $dbFunc = new dbFunction();
 $user = $dbFunc->getUserData($userID);
 $name = $user['Name'];
 $email = $user['Email'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +67,7 @@ $email = $user['Email'];
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?id=<?php echo $userID ?>">
               Name: <input name="updateName" type="text" value="<?php echo $name; ?>"> <Br /> <br />
               Email: <input name="updateEmail" type="text" value="<?php echo $email; ?>"> <br /> <br />
-              <button type="button" class="btn btn-warning btn-sm" name="save" >Save</button>
+              <button type="submit" class="btn btn-warning btn-sm" name="save" >Save</button>
             </form>
           <!--/FOrm Material  -->
 

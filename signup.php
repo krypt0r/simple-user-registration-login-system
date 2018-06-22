@@ -1,7 +1,4 @@
 <?php
-if($_SESSION['level'] != 1){
-  header("location:./home.php");
-}
 $name = $email = $confirmEmail = "";
 $nameErr = $emailErr = $conEmailErr = $passError = $tncErr = "";
 require_once('dbFunction.php');

@@ -1,14 +1,6 @@
 <?php
 include_once('dbFunction.php');
 $dbFunc = new dbFunction();
-if(isset($_POST['logout'])){
-    session_unset();
-    session_destroy();
-}
-if(!($_SESSION)){
-    header("location:./login.php");
-}
-
 if($_SESSION['level'] != 1){
   header("location:./home.php");
 }
@@ -20,9 +12,6 @@ $id = $_SESSION['uid'];
 
 $query = $dbFunc->getAllUsers();
 $totalUsers = mysqli_num_rows($query);
-$query2 = $dbFunc->getMessageDetails();
-$totalMessages = mysqli_num_rows($query2);
-$messageReadStatus = $dbFunc->getReadStatusMessage();
 ?>
 
 <!DOCTYPE html>
@@ -77,26 +66,19 @@ $messageReadStatus = $dbFunc->getReadStatusMessage();
     <br />
   </div>
   <!--Profile Box  -->
-  <style>
-    .thecont{
-      display: flex;
-    }
-  </style>
-<div class="thecont">
 
-
-  <div class="card" style="width: 22rem; margin-left: 30px; ">
+  <div class="card" style="width: 22rem; margin:auto;">
       <div class="card-header deep-orange lighten-1 white-text">Profile</div>
       <div class="card-body">
           <p class="card-text"><b>Name:</b> <?php echo $name;?> </p>
-          <p class="card-text"><b>Email:</b>&nbsp;<?php echo $email;?></p>
-          <p class="card-text"><b>Access Level:</b>&nbsp;<?php if($_SESSION['level']==1){echo "Admin";}?></p>
+          <p class="card-text"><b>Email:</b>&nbsp<?php echo $email;?></p>
+          <p class="card-text"><b>Access Level:</b>&nbsp<?php if($_SESSION['level']==1){echo "Admin";}?></p>
           <!-- <a class="btn btn-deep-orange btn-sm" href="./editProfile.php?id=<?php echo $id?>">Edit Profile</a> -->
       </div>
   </div>
   <br />
   <br />
-  <div class="card" style="width: 22rem; margin-left:30px;">
+  <div class="card" style="width: 22rem;  margin:auto;">
       <div class="card-header deep-orange lighten-1 white-text">Users</div>
       <div class="card-body">
           <p class="card-text"><b><i class="fa fa-user"></i> &nbsp;Total Users Count:</b> <?php echo $totalUsers;?> </p>
@@ -106,23 +88,9 @@ $messageReadStatus = $dbFunc->getReadStatusMessage();
           <a class="btn btn-deep-orange btn-sm" href="./totalUsers.php">Show Users</a>
       </div>
   </div>
-<br />
-<br />
-<div class="card" style="width: 22rem; margin-left:30px;">
-    <div class="card-header deep-orange lighten-1 white-text">Messages</div>
-    <div class="card-body">
-        <p class="card-text"><b><i class="fa fa-user"></i> &nbsp;Total Messages:</b> <?php echo $totalMessages;?> </p>
-        <p class="card-text"><b><i class="fa fa-user"></i> &nbsp;New Messages:</b> <?php echo $messageReadStatus;?> </p>
+  <br />
+  <br />
 
-
-        <br />
-        <a class="btn btn-deep-orange btn-sm" href="./showMessages.php">Show Messages</a>
-    </div>
-</div>
-</div>
-<br />
-<br />
-<br />
     <div class="alert alert-success" role="alert">
       <h4 class="alert-heading">Hello <?php echo $_SESSION['user']; ?></h4>
       <p>This portal is under devlopment. Check back later. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
@@ -157,6 +125,12 @@ $messageReadStatus = $dbFunc->getReadStatusMessage();
 
 </html>
 <?php
-
+if(isset($_POST['logout'])){
+    session_unset();
+    session_destroy();
+}
+if(!($_SESSION)){
+    header("location:./login.php");
+}
 
 ?>

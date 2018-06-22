@@ -1,14 +1,16 @@
 <?php
+$alert = "";
+include_once('dbFunction.php');
+$dbFunc = new dbFunction();
+
 if(isset($_POST['logout'])){
 session_unset();
 session_destroy();
 }
 if(!($_SESSION)){
 header("location:./login.php");
-}
 
-include_once('dbFunction.php');
-$dbFunc = new dbFunction();
+}
 if($_SESSION['level'] != 1){
   header("location:./home.php");
 }
